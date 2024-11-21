@@ -1,22 +1,22 @@
 public class Scoreboard {
 
 
-    private String id;
+    private int id;
     private String playerName;
     private int score;
 
-    public Scoreboard(String id, String playerName, int score) {
+    public Scoreboard(int id, String playerName, int score) {
         this.id = id;
         this.playerName = playerName;
         this.score = score;
     }
 
     //region Getters and Setters
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -48,7 +48,7 @@ public class uploadFromFile {
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
-    }// uploadToDB End
+    }// uploadToScoreboards End
 
     public static void uploadToGames() {
         String filePath = "src/GamesFile";
@@ -78,7 +78,116 @@ public class uploadFromFile {
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
-    }// uploadToDB End
+    }// uploadToGames End
+
+    public static void uploadToLink() {
+        // This should not be here since i opted out from using a file
+        String sql = "INSERT INTO gametoscorelink (togamesfk, toscoreboardsfk) VALUES (?, ?)";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            for (int entry = 1; entry <= 100; entry++) {
+                int TOGAMES;
+
+                // Lesson learned: it would have been faster, scalable and future-proof if I had make a method to create a File instead
+                // Edit never doing this again like this...
+                switch (entry) {
+                    case 1, 2, 3, 4, 5 -> {
+                        TOGAMES = 1;
+                    }
+                    case 6, 7, 8, 9, 10, 11, 12 -> {
+                        TOGAMES = 2;
+                    }
+                    case 13, 14, 15 -> {
+                        TOGAMES = 3;
+                    }
+                    case 16, 17, 18, 19, 20, 21, 22 -> {
+                        TOGAMES = 4;
+                    }
+                    case 23, 24, 25, 26 -> {
+                        TOGAMES = 5;
+                    }
+                    case 27, 28, 29, 30, 31 -> {
+                        TOGAMES = 6;
+                    }
+                    case 32, 33, 34 -> {
+                        TOGAMES = 7;
+                    }
+                    case 35 -> {
+                        TOGAMES = 8;
+                    }
+                    case 36, 37 -> {
+                        TOGAMES = 9;
+                    }
+                    case 38, 39, 40 -> {
+                        TOGAMES = 10;
+                    }
+                    case 41, 42, 43 -> {
+                        TOGAMES = 11;
+                    }
+                    case 44, 45, 46, 47, 48, 49 -> {
+                        TOGAMES = 12;
+                    }
+                    case 50, 51 -> {
+                        TOGAMES = 13;
+                    }
+                    case 52, 53, 54 -> {
+                        TOGAMES = 14;
+                    }
+                    case 55, 56, 57, 58, 59, 60 -> {
+                        TOGAMES = 15;
+                    }
+                    case 61, 62, 63, 64, 65, 66, 67 -> {
+                        TOGAMES = 16;
+                    }
+                    case 68, 69, 70, 71, 72 -> {
+                        TOGAMES = 17;
+                    }
+                    case 73, 74, 75, 76, 77, 78 -> {
+                        TOGAMES = 18;
+                    }
+                    case 79, 80, 81, 82 -> {
+                        TOGAMES = 19;
+                    }
+                    case 83, 84, 85 -> {
+                        TOGAMES = 20;
+                    }
+                    case 86 -> {
+                        TOGAMES = 21;
+                    }
+                    case 87, 88 -> {
+                        TOGAMES = 22;
+                    }
+                    case 89, 90 -> {
+                        TOGAMES = 23;
+                    }
+                    case 91, 92, 93 -> {
+                        TOGAMES = 24;
+                    }
+                    case 94, 95, 96, 97, 98 -> {
+                        TOGAMES = 25;
+                    }
+                    case 99, 100 -> {
+                        TOGAMES = 26;
+                    }
+                    default -> throw new IllegalStateException("Unexpected value: " + entry);
+                }// Switch End
+
+                int TOSCORE = entry;
+
+                preparedStatement.setInt(1, TOGAMES);
+                preparedStatement.setInt(2, TOSCORE);
+                preparedStatement.addBatch();
+            }
+
+            int[] rowsInserted = preparedStatement.executeBatch();
+
+            System.out.println(rowsInserted.length + " rows inserted successfully.");
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+    }// uploadToLink End
 
 
 }

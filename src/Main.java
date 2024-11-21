@@ -17,6 +17,8 @@ public class Main {
             System.out.println("[5] Exit Program");
             System.out.println("[6] Upload to Scoreboards");
             System.out.println("[7] Upload to Games");
+            System.out.println("[8] Upload to Link table");
+            System.out.println("[9] View scoreboards");
             System.out.print("Please enter your choice: ");
 
             // Stores the menu choice and clears scanner
@@ -37,7 +39,7 @@ public class Main {
                 }
                 case 2 -> {
                     System.out.println("Enter game ID to Update: ");
-                    int id  = scanner.nextInt();
+                    int id = scanner.nextInt();
                     scanner.nextLine();// Clears scanner before next set of inputs
                     System.out.println("Enter new Title: ");
                     String newTitle = scanner.nextLine();
@@ -49,7 +51,7 @@ public class Main {
                 }
                 case 3 -> {
                     System.out.println("Enter game ID to Delete: ");
-                    int id  = scanner.nextInt();
+                    int id = scanner.nextInt();
                     repository.deleteGame(id);
                 }
                 case 4 -> {
@@ -69,11 +71,18 @@ public class Main {
                 case 7 -> {
                     uploadFromFile.uploadToGames();
                 }
+                case 8 -> {
+                    uploadFromFile.uploadToLink();
+                }
+                case 9 ->{
+                    System.out.println("Enter game ID to view scoreboards: ");
+                    int id = scanner.nextInt();
+                    List<Scoreboard> scoreboards = repository.getScoreBoard(id);
+                    scoreboards.forEach(System.out::println);
+                }
                 default -> System.out.println("Invalid choice, please try again");
             }// Switch End
         }// WLoop End
-
-        // need to make it so the FK in games links to fk in scoreboards
 
 
     }// main End

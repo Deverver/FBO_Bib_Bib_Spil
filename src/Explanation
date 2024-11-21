@@ -1,0 +1,28 @@
+We have:
+26 games
+100 players / runs
+And yeah Games could have contained more data like release date and score could have had the date the score was made...
+
+
+Normally we would have a 1 to 1 relationship between games and scoreboard, and we could simply link them.
+But our scoreboard contains both a player name and a score,
+therefore ive added a random value to each entry, that wil signify which game it belongs to.
+
+THE REASON why i chose to player names be a part of the scoreboards is because old retro games only had a localized scoreboard,
+meaning a player needed to list their "run" of the game after each completion/failure. "I dont know if the data was separate or not originally"
+
+However this turns our relation between games and scoreboard entries into a many to many relation.
+Because of this we need to link them together in another Table.
+
+
+Our SQL code looks like this:
+create table gametoscorelink (
+togamesfk int,
+toscoreboardsfk int,
+PRIMARY KEY (togamesfk, toscoreboardsfk),
+
+FOREIGN KEY (togamesfk) REFERENCES games(id),
+FOREIGN KEY (toscoreboardsfk) REFERENCES scoreboards(id));
+
+Now if we had time, we could make a method to read each number that signifies where the score belongs to and add it to the DB.
+Right now we need a method to display Scores related to a Game..
